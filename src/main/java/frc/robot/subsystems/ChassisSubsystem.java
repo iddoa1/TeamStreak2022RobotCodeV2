@@ -1,17 +1,10 @@
-// Copyright (c) FIRST and other WPILib contributors.
-// Open Source Software; you can modify and/or share it under the terms of
-// the WPILib BSD license file in the root directory of this project.
-
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-import com.kauailabs.navx.frc.AHRS;
 
-import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.cChassis;
 
@@ -23,9 +16,6 @@ public class ChassisSubsystem extends SubsystemBase {
 
   DifferentialDrive difDrive = new DifferentialDrive(leftMotorMaster, rightMotorMaster);
   
-  //private final AHRS gyro = new AHRS(Port.kMXP);
-
-  /** Creates a new ChassisSubsystem. */
   public ChassisSubsystem() {
     rightMotorMaster.configFactoryDefault();
     leftMotorMaster.configFactoryDefault();
@@ -35,8 +25,6 @@ public class ChassisSubsystem extends SubsystemBase {
 
     rightMotorMaster.setInverted(true);
     rightMotorFollow.setInverted(InvertType.FollowMaster);
-
-    //gyro.reset();
   }
 
   public void drive(double move, double turn){
@@ -54,14 +42,7 @@ public class ChassisSubsystem extends SubsystemBase {
     leftMotorMaster.setNeutralMode(mode);
   }
 
-  /** 
-  public double getAngle(){
-    return gyro.getAngle();
-  }
-  */
-
   @Override
   public void periodic() {
-    //SmartDashboard.putNumber("gyro", gyro.getAngle());
   }
 }

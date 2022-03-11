@@ -15,8 +15,10 @@ import frc.robot.Constants.cClimber;
 public class ElevatorSubsystem extends SubsystemBase {
   WPI_TalonFX elevatorMotorM = new WPI_TalonFX(cClimber.climberMasterM);
   WPI_TalonFX elevatorMotorF = new WPI_TalonFX(cClimber.climberFollowM);
-  boolean reseted = false;
+  
   DigitalInput magneticSwitch = new DigitalInput(cClimber.magneticSwitch);
+
+  boolean reseted = false;
 
   /** Creates a new ClimbSubsystem. */
   public ElevatorSubsystem() {
@@ -26,6 +28,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     setBrake();
     elevatorMotorF.follow(elevatorMotorM);
     elevatorMotorM.setSelectedSensorPosition(0);
+    
     elevatorMotorM.configForwardSoftLimitThreshold(132262);
     elevatorMotorM.configReverseSoftLimitThreshold(00);
     elevatorMotorM.configForwardSoftLimitEnable(true);
@@ -34,12 +37,10 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
-    if (isElevatorDown())
-      elevatorMotorM.setSelectedSensorPosition(0);
+    if (isElevatorDown()) elevatorMotorM.setSelectedSensorPosition(0);
+    if (!reseted) reseted = isElevatorDown();
+    
     SmartDashboard.putNumber("elevator", elevatorMotorM.getSelectedSensorPosition());
-    if (!reseted)
-      reseted = isElevatorDown();
   }
 
   public void elevatorUp() {
@@ -73,6 +74,6 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   public boolean isElevatorUp() {
-    return elevatorMotorM.getSelectedSensorPosition() >= 132262;
+    return elevatorMotorM.getSelectedSensorPosition() >= cClimber.elevatorMaxDis;
   }
 }
