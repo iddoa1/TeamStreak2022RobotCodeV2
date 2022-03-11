@@ -1,13 +1,13 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.cBallElevator;
 import frc.robot.Constants.cIntake;
 
 public class BallSubsystem extends SubsystemBase {
-
-
+  
   WPI_TalonFX intakeMaster = new WPI_TalonFX(cIntake.intakeMotor);
   WPI_TalonFX seconedIntake = new WPI_TalonFX(cIntake.secondMotor);
 
