@@ -11,7 +11,7 @@ public final class Constants {
         //ports
         public static final int intakeMotor = 6;
         public static final int secondMotor = 7;
-        public static final int outerIntakeMotor = 11;
+        public static final int outerIntakeMotor = 12;
 
 
         public static final double power = 0.3;

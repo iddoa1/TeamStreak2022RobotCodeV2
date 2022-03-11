@@ -37,7 +37,7 @@ public class DriveCommand extends CommandBase {
   public void execute() {
     
     double moveSpeed = speedLimiter.calculate(drive.getAsDouble());
-    double turnSpeed = turnLimiter.calculate(turn.getAsDouble()) * 0.6;
+    double turnSpeed = turnLimiter.calculate(turn.getAsDouble()) * 0.57;
     if(slow.getAsBoolean()){
       moveSpeed*=0.5;
       turnSpeed*=0.5;

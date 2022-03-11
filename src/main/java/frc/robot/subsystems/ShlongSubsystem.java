@@ -40,6 +40,14 @@ public class ShlongSubsystem extends SubsystemBase {
     return encoder.getDistance()>4.5;
   }
 
+  public void handOpen(){
+    turner.set(0.4);
+  }
+
+  public void handClose(){
+    turner.set(-0.4);
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

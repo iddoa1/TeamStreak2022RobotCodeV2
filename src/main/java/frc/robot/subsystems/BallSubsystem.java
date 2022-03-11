@@ -13,36 +13,36 @@ import frc.robot.Constants.cIntake;
 
 public class BallSubsystem extends SubsystemBase {
   
-  WPI_TalonFX outerMotor = new WPI_TalonFX(cIntake.outerIntakeMotor);
+  ///WPI_TalonFX outerMotor = new WPI_TalonFX(cIntake.outerIntakeMotor);
   WPI_TalonFX intakeMaster = new WPI_TalonFX(cIntake.intakeMotor);
   WPI_TalonFX seconedIntake = new WPI_TalonFX(cIntake.secondMotor);
 
   WPI_TalonFX magazine = new WPI_TalonFX(cBallElevator.beltMotor);
 
-  Servo leftPiston = new Servo(9);
-  Servo rightPiston = new Servo(8);
+  //Servo leftPiston = new Servo(9);
+  //Servo rightPiston = new Servo(8);
 
   public BallSubsystem() {
     intakeMaster.configFactoryDefault();
-    outerMotor.configFactoryDefault();
+    //outerMotor.configFactoryDefault();
 
     seconedIntake.follow(intakeMaster);
-    open();
+    //close();
   }
 
   public void ballsIn(){
     intakeMaster.set(0.3);
-    outerMotor.set(0.4);
+    //outerMotor.set(0.4);
   }
 
   public void ballOut(){
     intakeMaster.set(-0.3);
-    outerMotor.set(-0.4);
+    //outerMotor.set(-0.4);
   }
 
   public void stop(){
     intakeMaster.set(0);
-    outerMotor.set(0);
+    //outerMotor.set(0);
     magazine.set(0);
   }
 
@@ -51,6 +51,7 @@ public class BallSubsystem extends SubsystemBase {
     magazine.set(0.4);
   }
 
+  /** 
   public void open(){
     leftPiston.set(0.8);
     rightPiston.set(0.8);
@@ -58,6 +59,21 @@ public class BallSubsystem extends SubsystemBase {
   public void close(){
     leftPiston.set(0.2);
     rightPiston.set(0.2);
+  }
+  */
+
+  public void ballsUp(){
+    magazine.set(0.32);
+  }
+
+  public void ballsDown(){
+    magazine.set(-0.32);
+  }
+
+  public void spitBalls(){
+    magazine.set(-0.32);
+    intakeMaster.set(-0.3);
+    //outerMotor.set(-0.3);
   }
 
 

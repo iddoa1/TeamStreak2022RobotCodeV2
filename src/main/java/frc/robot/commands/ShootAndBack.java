@@ -18,9 +18,10 @@ public class ShootAndBack extends SequentialCommandGroup {
   public ShootAndBack(ChassisSubsystem chassisSubsystem, BallSubsystem collectorSubsystem) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands(new InstantCommand(()->collectorSubsystem.shoot(0.5)),
-    new WaitCommand(2),
+    addCommands(
+    new InstantCommand(()->collectorSubsystem.shoot(0.45)),
+    new WaitCommand(1),
     new InstantCommand(collectorSubsystem::stop),
-    new DriveCommand(chassisSubsystem,()-> -0.5,()-> 0,()-> false).withTimeout(2));
+    new DriveCommand(chassisSubsystem,()-> -0.5,()-> 0,()-> false).withTimeout(1.4));
   }
 }

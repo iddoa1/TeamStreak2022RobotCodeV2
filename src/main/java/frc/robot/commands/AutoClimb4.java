@@ -35,7 +35,7 @@ public class AutoClimb4 extends SequentialCommandGroup {
         new RunCommand(elevatorSubsystem::elevatorDown).withInterrupt(elevatorSubsystem::isElevatorDown)
             .withInterrupt(confirmation).alongWith(
                 new SequentialCommandGroup(
-                    new WaitCommand(2),
+                    new WaitCommand(3.5),
                     new RunCommand(shlongSubsystem::close).withTimeout(1),
                     new InstantCommand(shlongSubsystem::stop))),
         new RunCommand(elevatorSubsystem::elevatorUp).withInterrupt(elevatorSubsystem::isElevatorUp),

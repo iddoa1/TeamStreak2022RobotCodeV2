@@ -10,6 +10,7 @@ import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.AutoClimb3;
 import frc.robot.commands.AutoClimb4;
@@ -45,6 +46,10 @@ public class RobotContainer {
   private final Joystick joystick1 = new Joystick(0);
   private final Joystick joystick2 = new Joystick(1);
 
+  public BallSubsystem getSubsystem(){
+    return collectorSubsystem;
+  }
+
   /**
    * The container for the robot. Contains subsystems, OI devices, and commands.
    */
@@ -70,24 +75,30 @@ public class RobotContainer {
     new Trigger(() -> joystick2.getPOV() == 180).whenActive(elevatorSubsystem::elevatorDown, elevatorSubsystem)
         .whenInactive(elevatorSubsystem::stop, elevatorSubsystem);
     
-    new Trigger(() -> joystick2.getPOV() == 90).whenActive(new RunCommand(shlongSubsystem::close, shlongSubsystem))
+    new Trigger(() -> joystick2.getPOV() == 90).whenActive(new RunCommand(shlongSubsystem::handClose, shlongSubsystem))
         .whenInactive(shlongSubsystem::stop, shlongSubsystem);
-    new Trigger(() -> joystick2.getPOV() == 270).whenActive(new RunCommand(shlongSubsystem::open, shlongSubsystem))
+    new Trigger(() -> joystick2.getPOV() == 270).whenActive(new RunCommand(shlongSubsystem::handOpen, shlongSubsystem))
         .whenInactive(shlongSubsystem::stop, shlongSubsystem);
     
     SmartDashboard.putData(new StartEndCommand(elevatorSubsystem::setCoast, elevatorSubsystem::setBrake, elevatorSubsystem).withTimeout(5).withName("Coast"));
 
-    new JoystickButton(joystick1, 8).whenActive(collectorSubsystem::ballsIn, collectorSubsystem)
+    new JoystickButton(joystick1, 7).whenActive(collectorSubsystem::ballsIn, collectorSubsystem)
     .whenInactive(collectorSubsystem::stop, collectorSubsystem);
     
-    new JoystickButton(joystick1, 7).whenActive(()->collectorSubsystem.shoot(0.3), collectorSubsystem)
+    new JoystickButton(joystick1, 8).whenActive(()->collectorSubsystem.shoot(0.42), collectorSubsystem)
     .whenInactive(collectorSubsystem::stop, collectorSubsystem);
 
-    new JoystickButton(joystick1, 3).toggleWhenActive(new StartEndCommand(collectorSubsystem::open, collectorSubsystem::close));
+    //new JoystickButton(joystick2, 3).toggleWhenActive(new StartEndCommand(collectorSubsystem::open, collectorSubsystem::close));
 
-    new JoystickButton(joystick1, 2).whenPressed(new AutoClimb3(elevatorSubsystem, shlongSubsystem, ()->joystick1.getRawButton(2)));
+    new JoystickButton(joystick2, 2).whenPressed(new AutoClimb3(elevatorSubsystem, shlongSubsystem, ()->joystick2.getRawButton(2)));
 
-    //n111ew JoystickButton(joystick1, 1).whenPressed(new AutoClimb4(elevatorSubsystem, shlongSubsystem, ()->joystick1.getRawButton(1)));
+    new Trigger(()->joystick1.getPOV()==270).whenActive(()->collectorSubsystem.ballsUp()).whenInactive(()->collectorSubsystem.stop());
+    new Trigger(()->joystick1.getPOV()==90).whenActive(()->collectorSubsystem.ballsDown()).whenInactive(()->collectorSubsystem.stop());
+
+    new JoystickButton(joystick2, 8).whenActive(()->collectorSubsystem.spitBalls()).whenInactive(()->collectorSubsystem.stop());
+    new JoystickButton(joystick2, 6).whenActive(()->collectorSubsystem.ballsUp()).whenInactive(()->collectorSubsystem.stop());
+
+    new JoystickButton(joystick2, 1).whenPressed(new AutoClimb4(elevatorSubsystem, shlongSubsystem, ()->joystick2.getRawButton(1)));
 
   }
 
@@ -96,9 +107,20 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
+
+  SendableChooser<Command> autoCommand;
+
+  public void initAutoCommand(){
+    autoCommand = new SendableChooser<Command>();
+    autoCommand.addOption("auto", new ShootAndBack(chassisSubsystem, collectorSubsystem));
+    autoCommand.addOption("null", null);
+
+    SmartDashboard.putData("autonomous selector", autoCommand);
+  }
+
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return new ShootAndBack(chassisSubsystem, collectorSubsystem);
+    return autoCommand.getSelected();
   }
 
   public void setBrake(NeutralMode mode) {
