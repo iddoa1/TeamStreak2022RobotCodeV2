@@ -125,14 +125,9 @@ public final class Constants {
 
     public static final class cClimber{
 
-        public static final double offset=3.9;
-
-        //limits in radians
-        public static final double maxAngle = Math.PI/4;
-        public static final double midAngle = Math.PI/5;
-
-        //tolorens
-        public static final double tolorens = 0.25;
+        public static final double openLimit=4.5;
+        public static final double closeLimit = 4;
+        public static final double elevatorMaxDis = 132262;
 
         //ports
         public static final int climberMasterM = 8;
