@@ -25,7 +25,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     elevatorMotorF.follow(elevatorMotorM);
     elevatorMotorM.setSelectedSensorPosition(0);
     
-    elevatorMotorM.configForwardSoftLimitThreshold(132262);
+    elevatorMotorM.configForwardSoftLimitThreshold(cClimber.elevatorMaxDis);
     elevatorMotorM.configReverseSoftLimitThreshold(00);
     elevatorMotorM.configForwardSoftLimitEnable(true);
     elevatorMotorM.configReverseSoftLimitEnable(true);

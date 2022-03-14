@@ -42,7 +42,7 @@ public class RobotContainer {
     CameraServer.startAutomaticCapture();
     configureButtonBindings();
     chassisSubsystem.setDefaultCommand(
-        new DriveCommand(chassisSubsystem, () -> -operatingController.getRawAxis(1), () -> operatingController.getRawAxis(2), ()->operatingController.getRawButton(6)));
+        new DriveCommand(chassisSubsystem, () -> -operatingController.getRawAxis(controller.leftY), () -> operatingController.getRawAxis(controller.rightX), ()->operatingController.getRawButton(controller.topRight)));
   }
 
   private void configureButtonBindings() {
@@ -58,21 +58,24 @@ public class RobotContainer {
     
     SmartDashboard.putData(new StartEndCommand(elevatorSubsystem::setCoast, elevatorSubsystem::setBrake, elevatorSubsystem).withTimeout(5).withName("Coast"));
 
-    new JoystickButton(operatingController, 7).whenActive(collectorSubsystem::ballsIn, collectorSubsystem)
+    new JoystickButton(operatingController, controller.botLeft).whenActive(collectorSubsystem::ballsIn, collectorSubsystem)
     .whenInactive(collectorSubsystem::stop, collectorSubsystem);
     
-    new JoystickButton(operatingController, 8).whenActive(()->collectorSubsystem.shoot(0.42), collectorSubsystem)
+    new JoystickButton(operatingController, controller.botRight).whenActive(()->collectorSubsystem.shoot(0.42), collectorSubsystem)
     .whenInactive(collectorSubsystem::stop, collectorSubsystem);
 
-    new JoystickButton(seconedController, 2).whenPressed(new AutoClimb3(elevatorSubsystem, shlongSubsystem, ()->seconedController.getRawButton(2)));
+    new JoystickButton(seconedController, controller.a).whenPressed(new AutoClimb3(elevatorSubsystem, shlongSubsystem, ()->seconedController.getRawButton(2)));
 
-    new Trigger(()->operatingController.getPOV()==270).whenActive(()->collectorSubsystem.ballsUp()).whenInactive(()->collectorSubsystem.stop());
-    new Trigger(()->operatingController.getPOV()==90).whenActive(()->collectorSubsystem.ballsDown()).whenInactive(()->collectorSubsystem.stop());
+    new Trigger(()->operatingController.getPOV()==controller.left).whenActive(()->collectorSubsystem.ballsUp()).whenInactive(()->collectorSubsystem.stop());
+    new Trigger(()->operatingController.getPOV()==controller.right).whenActive(()->collectorSubsystem.ballsDown()).whenInactive(()->collectorSubsystem.stop());
 
-    new JoystickButton(seconedController, 8).whenActive(()->collectorSubsystem.spitBalls()).whenInactive(()->collectorSubsystem.stop());
-    new JoystickButton(seconedController, 6).whenActive(()->collectorSubsystem.ballsUp()).whenInactive(()->collectorSubsystem.stop());
+    new JoystickButton(seconedController, controller.botRight).whenActive(()->collectorSubsystem.spitBalls()).whenInactive(()->collectorSubsystem.stop());
+    new JoystickButton(seconedController, controller.topRight).whenActive(()->collectorSubsystem.ballsUp()).whenInactive(()->collectorSubsystem.stop());
 
-    new JoystickButton(seconedController, 1).whenPressed(new AutoClimb4(elevatorSubsystem, shlongSubsystem, ()->seconedController.getRawButton(1)));
+    new JoystickButton(seconedController, controller.x).whenPressed(new AutoClimb4(elevatorSubsystem, shlongSubsystem, ()->seconedController.getRawButton(1)));
+
+    //open the intake system.
+    new JoystickButton(seconedController, controller.b).whenActive(collectorSubsystem::openIntake).whenInactive(collectorSubsystem::stop);
 
   }
 

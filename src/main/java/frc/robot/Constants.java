@@ -12,6 +12,9 @@ public final class Constants {
         public static final int intakeMotor = 6;
         public static final int secondMotor = 7;
         public static final int outerIntakeMotor = 12;
+        public static final int intakeOperation = 0;
+
+        public static final double encoderDistance = 10000;
 
 
         public static final double power = 0.3;
@@ -126,6 +129,7 @@ public final class Constants {
     public static final class cClimber{
 
         public static final double offset=3.9;
+        public static final double elevatorMaxDis = 132262;
 
         //limits in radians
         public static final double maxAngle = Math.PI/4;
