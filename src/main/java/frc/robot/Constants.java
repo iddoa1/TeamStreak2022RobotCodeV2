@@ -137,15 +137,6 @@ public final class Constants {
         public static final int channel1 = 3;
         public static final int channel2 = 4;
 
-        //PID
-        public static final double climberP = 3;
-        public static final double climberI = 0;
-        public static final double climberD = 0;
-
-        public static final double ks = 0;
-        public static final double kcos = 0;
-        public static final double kv = 0;
-
         //constaraints
         public static final double kMaxVelocityRadPerSec = 7;
         public static final double kMaxVelcityRadPerSecSquard = 20;
