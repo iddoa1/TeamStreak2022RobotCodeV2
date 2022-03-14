@@ -24,21 +24,20 @@ public final class Constants {
 
         //limitations
         public static final int kMaxSpeed = 3;
-        public static final int kMAxAcceleration = 3;
         public static final double kMaxAngularSpeed = 2*Math.PI;
 
-        //PID
         public static final double ks = 0.56478;
         public static final double kv = 5.3626E-05;
         public static final double ka = 5.3643E-06; 
 
-        public static final double driveP = 0.087;
+        public static final double kP = 1;
 
-        //Autonomous trajectory tracking.
-        public static final double trackWidth = 0.535;
-        public static final double wheelRadius = Units.inchesToMeters(3);
+        public static final int encoderResulotion = 2048;
+        public static final double kGearRatio = 10.72;
+        public static final double kTrackWidth = 0.535;
+        public static final double kWheelRadius = Units.inchesToMeters(3);
         public static final DifferentialDriveKinematics kinematics = 
-        new DifferentialDriveKinematics(trackWidth);
+        new DifferentialDriveKinematics(kTrackWidth);
 
         public static final double kRamseteB = 2;
         public static final double kRamseteZeta = 0.7;
@@ -128,8 +127,8 @@ public final class Constants {
 
     public static final class cClimber{
 
+<<<<<<< HEAD
         public static final double offset=3.9;
-        public static final double elevatorMaxDis = 132262;
 
         //limits in radians
         public static final double maxAngle = Math.PI/4;
@@ -137,6 +136,11 @@ public final class Constants {
 
         //tolorens
         public static final double tolorens = 0.25;
+=======
+        public static final double openLimit=4.5;
+        public static final double closeLimit = 4;
+        public static final double elevatorMaxDis = 132262;
+>>>>>>> d71f129c680c040dea915625049a93783aaeee70
 
         //ports
         public static final int climberMasterM = 8;

@@ -22,11 +22,11 @@ public class ShlongSubsystem extends SubsystemBase {
   }
 
   public void open(){
-    if(!(encoder.getDistance()>4.5)) turner.set(0.4); else turner.set(0); 
+    if(!(encoder.getDistance()>cClimber.openLimit)) turner.set(0.4); else turner.set(0); 
   }
 
   public void close(){
-  if(!(encoder.getDistance()<4)) turner.set(-0.4); else turner.set(0);
+  if(!(encoder.getDistance()<cClimber.closeLimit)) turner.set(-0.4); else turner.set(0);
   }
 
   public void stop(){
@@ -40,6 +40,7 @@ public class ShlongSubsystem extends SubsystemBase {
     return encoder.getDistance()>4.5;
   }
 
+
   public void handOpen(){
     turner.set(0.4);
   }
@@ -50,7 +51,6 @@ public class ShlongSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
     SmartDashboard.putNumber("Shlong", encoder.getDistance());
     SmartDashboard.putBoolean("Shlong close", isClose());
   }
