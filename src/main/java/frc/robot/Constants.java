@@ -127,7 +127,8 @@ public final class Constants {
 
         public static final double openLimit=4.5;
         public static final double closeLimit = 4;
-        public static final double elevatorMaxDis = 132262;
+        public static final double elevatorMaxDis = 133500;
+        public static final double elevatorHalfDis = 70000;
 
         //ports
         public static final int climberMasterM = 8;

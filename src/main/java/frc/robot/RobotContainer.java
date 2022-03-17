@@ -10,14 +10,16 @@ import frc.robot.Constants.controller;
 import frc.robot.commands.AutoClimb3;
 import frc.robot.commands.AutoClimb4;
 import frc.robot.commands.DriveCommand;
+import frc.robot.commands.IntakeAndShoot;
 import frc.robot.commands.ShootAndBack;
 import frc.robot.subsystems.ChassisSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.BallSubsystem;
 import frc.robot.subsystems.ShlongSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
-
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -74,13 +76,18 @@ public class RobotContainer {
 
     new JoystickButton(seconedController, 1).whenPressed(new AutoClimb4(elevatorSubsystem, shlongSubsystem, ()->seconedController.getRawButton(1)));
 
+    new JoystickButton(seconedController, 5).whenActive(collectorSubsystem::openIntake).whenInactive(collectorSubsystem::stopOperation);
+    new JoystickButton(seconedController, 7).whenActive(collectorSubsystem::closeIntake).whenInactive(collectorSubsystem::stopOperation);
   }
+
+
 
   SendableChooser<Command> autoCommand;
 
   public void initAutoCommand(){
     autoCommand = new SendableChooser<Command>();
-    autoCommand.addOption("auto", new ShootAndBack(chassisSubsystem, collectorSubsystem));
+    autoCommand.addOption("auto1", new ShootAndBack(chassisSubsystem, collectorSubsystem));
+    autoCommand.addOption("auto2", new IntakeAndShoot(chassisSubsystem, collectorSubsystem));
     autoCommand.addOption("null", null);
 
     SmartDashboard.putData("autonomous selector", autoCommand);
@@ -92,5 +99,7 @@ public class RobotContainer {
 
   public void setBrake(NeutralMode mode) {
     chassisSubsystem.setBrake(mode);
+    chassisSubsystem.resetEncoders();
+    collectorSubsystem.resetEncoder();
   }
 }

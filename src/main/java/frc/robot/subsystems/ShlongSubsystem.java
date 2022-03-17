@@ -36,6 +36,7 @@ public class ShlongSubsystem extends SubsystemBase {
   public boolean isClose(){
     return encoder.getDistance()<4.07;
   }
+
   public boolean isOpen(){
     return encoder.getDistance()>4.5;
   }
@@ -52,6 +53,6 @@ public class ShlongSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     SmartDashboard.putNumber("Shlong", encoder.getDistance());
-    SmartDashboard.putBoolean("Shlong close", isClose());
+    SmartDashboard.putBoolean("shlong is open", encoder.getDistance()>=cClimber.openLimit);
   }
 }

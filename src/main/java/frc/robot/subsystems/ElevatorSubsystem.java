@@ -25,7 +25,7 @@ public class ElevatorSubsystem extends SubsystemBase {
     elevatorMotorF.follow(elevatorMotorM);
     elevatorMotorM.setSelectedSensorPosition(0);
     
-    elevatorMotorM.configForwardSoftLimitThreshold(132262);
+    elevatorMotorM.configForwardSoftLimitThreshold(cClimber.elevatorMaxDis);
     elevatorMotorM.configReverseSoftLimitThreshold(00);
     elevatorMotorM.configForwardSoftLimitEnable(true);
     elevatorMotorM.configReverseSoftLimitEnable(true);
@@ -41,7 +41,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   public void elevatorUp() {
     if (reseted)
-      elevatorMotorM.set(0.3);
+      elevatorMotorM.set(0.2);
     SmartDashboard.putBoolean("elevator stop", false);
   }
 
@@ -72,4 +72,13 @@ public class ElevatorSubsystem extends SubsystemBase {
   public boolean isElevatorUp() {
     return elevatorMotorM.getSelectedSensorPosition() >= cClimber.elevatorMaxDis;
   }
+
+  public boolean elevatorHalfUp(){
+    return elevatorMotorM.getSelectedSensorPosition() >= cClimber.elevatorHalfDis;
+  }
+
+  public void openHalf(){
+    if(!elevatorHalfUp()) elevatorMotorM.set(0.3); else elevatorMotorM.set(0);
+  }
+
 }

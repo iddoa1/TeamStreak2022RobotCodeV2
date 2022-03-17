@@ -7,6 +7,7 @@ package frc.robot.commands;
 import java.util.function.BooleanSupplier;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
@@ -31,24 +32,29 @@ public class AutoClimb4 extends SequentialCommandGroup {
             new RunCommand(shlongSubsystem::open).withInterrupt(shlongSubsystem::isOpen)),
         new WaitUntilCommand(confirmation),
         new RunCommand(elevatorSubsystem::elevatorDown).withInterrupt(elevatorSubsystem::isElevatorDown)
-            .withTimeout(0.4),
-        new RunCommand(elevatorSubsystem::elevatorDown).withInterrupt(elevatorSubsystem::isElevatorDown)
-            .withInterrupt(confirmation).alongWith(
+            .withTimeout(1),
+        new ParallelCommandGroup(
                 new SequentialCommandGroup(
-                    new WaitCommand(3.5),
-                    new RunCommand(shlongSubsystem::close).withTimeout(1),
+                    new WaitCommand(3),
+                    new RunCommand(shlongSubsystem::close).withTimeout(0.2),
                     new InstantCommand(shlongSubsystem::stop))),
-        new RunCommand(elevatorSubsystem::elevatorUp).withInterrupt(elevatorSubsystem::isElevatorUp),
-        new RunCommand(shlongSubsystem::close).withInterrupt(shlongSubsystem::isClose).alongWith(
-            new RunCommand(elevatorSubsystem::elevatorDown).withTimeout(0.5).andThen(
-                new InstantCommand(elevatorSubsystem::stop))),
+        new RunCommand(elevatorSubsystem::openHalf).withInterrupt(elevatorSubsystem::elevatorHalfUp),
+        new WaitUntilCommand(confirmation),
+            new WaitCommand(1),
+            new RunCommand(shlongSubsystem::close).withInterrupt(shlongSubsystem::isClose),
+            new InstantCommand(shlongSubsystem::stop),
+            new RunCommand(elevatorSubsystem::elevatorUp).withInterrupt(elevatorSubsystem::isElevatorUp).withTimeout(2),
+            new WaitUntilCommand(confirmation),
+
         // Climbs to 3
+        /**
         new WaitUntilCommand(confirmation),
         new RunCommand(elevatorSubsystem::elevatorUp).withInterrupt(elevatorSubsystem::isElevatorUp),
         new RunCommand(shlongSubsystem::close).withTimeout(0.3),
         new InstantCommand(shlongSubsystem::stop),
         new WaitUntilCommand(confirmation),
-        new RunCommand(elevatorSubsystem::elevatorDown).withTimeout(0.3),
+        */
+        new RunCommand(elevatorSubsystem::elevatorDown).withTimeout(0.5),
         new RunCommand(elevatorSubsystem::elevatorDown).withInterrupt(confirmation).alongWith(
             new SequentialCommandGroup(
                 new WaitCommand(1.5),

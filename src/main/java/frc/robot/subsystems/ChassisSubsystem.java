@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.cChassis;
 
@@ -29,10 +30,7 @@ public class ChassisSubsystem extends SubsystemBase {
 
   public void drive(double move, double turn){
 
-    if(Math.abs(move)<0.1) move=0;
-    if(Math.abs(turn)<0.1) turn=0;
-
-    difDrive.setMaxOutput(0.8);
+    if(Math.abs(move)<0.1) move=0; if(Math.abs(turn)<0.1) turn=0;
 
     difDrive.curvatureDrive(move*0.7, turn*0.5, true);
   }
@@ -42,7 +40,19 @@ public class ChassisSubsystem extends SubsystemBase {
     leftMotorMaster.setNeutralMode(mode);
   }
 
+  public void resetEncoders(){
+    rightMotorMaster.setSelectedSensorPosition(0);
+    leftMotorMaster.setSelectedSensorPosition(0);
+  }
+
+  public void turn(){
+    if(rightMotorMaster.getSelectedSensorPosition() > -41000) drive(0, 0.4);
+    if(rightMotorMaster.getSelectedSensorPosition() < -44500) drive(0, -0.3);
+  }
+
   @Override
   public void periodic() {
+    SmartDashboard.putNumber("right sensor", rightMotorMaster.getSelectedSensorPosition());
+    SmartDashboard.putNumber("left sensor", leftMotorMaster.getSelectedSensorPosition());
   }
 }
