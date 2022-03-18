@@ -11,7 +11,14 @@ public final class Constants {
         //ports
         public static final int intakeMotor = 6;
         public static final int secondMotor = 7;
-        public static final int outerIntakeMotor = 12;
+        public static final int outerIntakeMotor = 13;
+        public static final int intakeOperation = 12;
+
+        public static final int intakeEncoder = 6;
+
+        //limits
+        public static final double openIntake = 4;
+        public static final double closedIntake = 2;
 
 
         public static final double power = 0.3;
@@ -127,7 +134,7 @@ public final class Constants {
 
         public static final double openLimit=4.5;
         public static final double closeLimit = 4;
-        public static final double elevatorMaxDis = 133500;
+        public static final double elevatorMaxDis = 135800;
         public static final double elevatorHalfDis = 70000;
 
         //ports

@@ -22,11 +22,11 @@ public class ShlongSubsystem extends SubsystemBase {
   }
 
   public void open(){
-    if(!(encoder.getDistance()>cClimber.openLimit)) turner.set(0.4); else turner.set(0); 
+    if(!isOpen()) turner.set(0.35); else turner.set(0);
   }
 
   public void close(){
-  if(!(encoder.getDistance()<cClimber.closeLimit)) turner.set(-0.4); else turner.set(0);
+  if(!(encoder.getDistance()<cClimber.closeLimit)) turner.set(-0.35); else turner.set(0);
   }
 
   public void stop(){
@@ -34,11 +34,11 @@ public class ShlongSubsystem extends SubsystemBase {
   }
 
   public boolean isClose(){
-    return encoder.getDistance()<4.07;
+    return encoder.getDistance()<4.01;
   }
 
   public boolean isOpen(){
-    return encoder.getDistance()>4.5;
+    return encoder.getDistance()>=4.5;
   }
 
 
