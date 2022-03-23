@@ -18,6 +18,7 @@ public class AutoClimb4 extends SequentialCommandGroup {
   public AutoClimb4(ElevatorSubsystem elevatorSubsystem, ShlongSubsystem shlongSubsystem,
       BooleanSupplier confirmation) {
     addCommands(
+      new SequentialCommandGroup(
         new RunCommand(()->elevatorSubsystem.openUntil(120000)).withInterrupt(()->elevatorSubsystem.isOpenUntil(120000)).alongWith(
             new RunCommand(shlongSubsystem::open).withInterrupt(shlongSubsystem::isOpen)),
         new WaitUntilCommand(confirmation),
@@ -27,7 +28,7 @@ public class AutoClimb4 extends SequentialCommandGroup {
                     new WaitCommand(2.7),
                     new RunCommand(shlongSubsystem::close).withTimeout(0.2),
                     new InstantCommand(shlongSubsystem::stop)), new InstantCommand(elevatorSubsystem::stop)),
-        new WaitCommand(1),
+        new WaitCommand(2),
         new RunCommand(()->elevatorSubsystem.openUntil(95000)).withInterrupt(()->elevatorSubsystem.isOpenUntil(95000)),
             new WaitCommand(1),
             new RunCommand(shlongSubsystem::close).withInterrupt(shlongSubsystem::isClose),
@@ -42,7 +43,7 @@ public class AutoClimb4 extends SequentialCommandGroup {
                 new RunCommand(shlongSubsystem::open).withInterrupt(shlongSubsystem::isOpen))),
         new RunCommand(()->elevatorSubsystem.openUntil(100000)).withInterrupt(()->elevatorSubsystem.isOpenUntil(100000)),
         new RunCommand(shlongSubsystem::close).withInterrupt(shlongSubsystem::isClose),
-        new InstantCommand(shlongSubsystem::stop));
+        new InstantCommand(shlongSubsystem::stop)));
 
     this.shlongSubsystem = shlongSubsystem;
     this.elevatorSubsystem = elevatorSubsystem;

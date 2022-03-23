@@ -46,8 +46,8 @@ public class ChassisSubsystem extends SubsystemBase {
   }
 
   public void turn(){
-    if(rightMotorMaster.getSelectedSensorPosition() > -41000) drive(0, 0.4);
-    if(rightMotorMaster.getSelectedSensorPosition() < -44500) drive(0, -0.3);
+    if(rightMotorMaster.getSelectedSensorPosition() > -40500) drive(0, 0.4);
+    if(rightMotorMaster.getSelectedSensorPosition() < -42000) drive(0, -0.3);
   }
 
   @Override

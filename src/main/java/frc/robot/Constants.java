@@ -14,11 +14,11 @@ public final class Constants {
         public static final int outerIntakeMotor = 13;
         public static final int intakeOperation = 12;
 
-        public static final int intakeEncoder = 6;
+        public static final int intakeEncoder = 7;
 
         //limits
-        public static final double openIntake = 4;
-        public static final double closedIntake = 2;
+        public static final double openIntake = 0.72;
+        public static final double closedIntake = 0.18;
 
 
         public static final double power = 0.3;
@@ -63,7 +63,7 @@ public final class Constants {
         public static final int botLeft = 7;
         public static final int botRight = 8;
         public static final int topRight = 6;
-        public static final int topLeft = 10;
+        public static final int topLeft = 5;
 
         //values for the POV buttons in degrees
         public static final int up = 0;
