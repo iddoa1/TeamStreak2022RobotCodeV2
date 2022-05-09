@@ -9,9 +9,6 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.subsystems.BallSubsystem;
 
-// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
-// information, see:
-// https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class ShootHigh extends SequentialCommandGroup {
   
   BallSubsystem ballSubsystem;
@@ -22,7 +19,7 @@ public class ShootHigh extends SequentialCommandGroup {
     this.shooterSpeed = shooterSpeed;
     addCommands(
       new InstantCommand(()->ballSubsystem.shootUp(shooterSpeed)),
-      new WaitCommand(3),
+      new WaitCommand(1.2),
       new InstantCommand(ballSubsystem::ballsUp).andThen(new WaitCommand(3), new InstantCommand(()->ballSubsystem.stop()), new InstantCommand(()->ballSubsystem.stopShooter()))
     );
   }

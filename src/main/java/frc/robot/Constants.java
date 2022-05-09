@@ -52,6 +52,8 @@ public final class Constants {
         public static final int rMotorF = 4;
         public static final int lMotorM = 1;
         public static final int lMotorF = 2;
+
+        public static final double autoDistance = 10100;
     }
 
     public static final class controller{
@@ -133,7 +135,7 @@ public final class Constants {
     public static final class cClimber{
 
         public static final double openLimit=4.5;
-        public static final double closeLimit = 4;
+        public static final double closeLimit = 4.05;
         public static final double elevatorMaxDis = 135800;
         public static final double elevatorHalfDis = 70000;
 

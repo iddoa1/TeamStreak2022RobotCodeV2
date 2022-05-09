@@ -39,7 +39,7 @@ public class ElevatorSubsystem extends SubsystemBase {
 
   public void elevatorUp() {
     if (reseted)
-      elevatorMotorM.set(0.2);
+      elevatorMotorM.set(0.15);
     SmartDashboard.putBoolean("elevator stop", false);
   }
 
@@ -72,7 +72,11 @@ public class ElevatorSubsystem extends SubsystemBase {
   }
 
   public void openUntil(double dis){
-    if(!isOpenUntil(dis)) elevatorMotorM.set(0.15); else elevatorMotorM.set(0);
+    if(!isOpenUntil(dis)) elevatorMotorM.set(0.25); else elevatorMotorM.set(0);
+  }
+
+  public void slowOpenUntail(double dis){
+    if(!isOpenUntil(dis)) elevatorMotorM.set(0.13); else elevatorMotorM.set(0);
   }
 
   public boolean isOpenUntil(double dis){

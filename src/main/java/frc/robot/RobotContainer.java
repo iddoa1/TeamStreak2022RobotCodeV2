@@ -13,17 +13,15 @@ import frc.robot.commands.DriveCommand;
 import frc.robot.commands.IntakeAndShoot;
 import frc.robot.commands.ShootAndBack;
 import frc.robot.commands.ShootHigh;
+import frc.robot.commands.TheardAutonomous;
 import frc.robot.subsystems.ChassisSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 //import frc.robot.subsystems.IntakeOperation;
 import frc.robot.subsystems.BallSubsystem;
 import frc.robot.subsystems.ShlongSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
@@ -73,11 +71,11 @@ public class RobotContainer {
     //new JoystickButton(seconedController, controller.a).whenPressed(new AutoClimb3(elevatorSubsystem, shlongSubsystem, ()->seconedController.getRawButton(controller.a)));
     new JoystickButton(seconedController, controller.x).whenPressed(new AutoClimb4(elevatorSubsystem, shlongSubsystem, ()->seconedController.getRawButton(controller.x)));
 
-    new Trigger(()->operatingController.getPOV()==controller.left).whenActive(()->collectorSubsystem.ballsUp()).whenInactive(()->collectorSubsystem.stop());
+    new Trigger(()->operatingController.getPOV()==controller.left).whenActive(()->collectorSubsystem.ballsUpH()).whenInactive(()->collectorSubsystem.stop());
     new Trigger(()->operatingController.getPOV()==controller.right).whenActive(()->collectorSubsystem.ballsDown()).whenInactive(()->collectorSubsystem.stop());
 
     new JoystickButton(seconedController, controller.botRight).whenActive(collectorSubsystem::spitBalls).whenInactive(collectorSubsystem::stop);
-    new JoystickButton(seconedController, controller.topRight).whenActive(collectorSubsystem::ballsUp).whenInactive(collectorSubsystem::stop);
+    new JoystickButton(seconedController, controller.topRight).whenActive(collectorSubsystem::ballsUpH).whenInactive(collectorSubsystem::stop);
 
     new JoystickButton(seconedController, controller.topLeft).whenActive(collectorSubsystem::openHand, collectorSubsystem).whenInactive(collectorSubsystem::stopOperation, collectorSubsystem);
     new JoystickButton(seconedController, controller.botLeft).whenActive(collectorSubsystem::closeHand, collectorSubsystem).whenInactive(collectorSubsystem::stopOperation, collectorSubsystem);
@@ -91,6 +89,7 @@ public class RobotContainer {
     autoCommand = new SendableChooser<Command>();
     autoCommand.addOption("auto1", new ShootAndBack(chassisSubsystem, collectorSubsystem));
     autoCommand.addOption("auto2", new IntakeAndShoot(chassisSubsystem, collectorSubsystem));
+    autoCommand.addOption("auto2 H", new TheardAutonomous(collectorSubsystem, chassisSubsystem));
     autoCommand.addOption("null", null);
 
     SmartDashboard.putData("autonomous selector", autoCommand);

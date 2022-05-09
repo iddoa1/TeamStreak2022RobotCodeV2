@@ -23,18 +23,18 @@ public class AutoClimb4 extends SequentialCommandGroup {
             new RunCommand(shlongSubsystem::open).withInterrupt(shlongSubsystem::isOpen)),
         new WaitUntilCommand(confirmation),
         new RunCommand(shlongSubsystem::open).withInterrupt(shlongSubsystem::isOpen),
-        new RunCommand(elevatorSubsystem::elevatorDown).withTimeout(3).alongWith(
+        new RunCommand(elevatorSubsystem::elevatorDown).withTimeout(2.8).alongWith(
                 new SequentialCommandGroup(
                     new WaitCommand(2.7),
                     new RunCommand(shlongSubsystem::close).withTimeout(0.2),
                     new InstantCommand(shlongSubsystem::stop)), new InstantCommand(elevatorSubsystem::stop)),
         new WaitCommand(2),
-        new RunCommand(()->elevatorSubsystem.openUntil(95000)).withInterrupt(()->elevatorSubsystem.isOpenUntil(95000)),
+        new RunCommand(()->elevatorSubsystem.slowOpenUntail(95000)).withInterrupt(()->elevatorSubsystem.isOpenUntil(95000)),
             new WaitCommand(1),
             new RunCommand(shlongSubsystem::close).withInterrupt(shlongSubsystem::isClose),
             new InstantCommand(shlongSubsystem::stop),
             new WaitUntilCommand(confirmation),
-            new RunCommand(()->elevatorSubsystem.openUntil(138000)).withInterrupt(()->elevatorSubsystem.isOpenUntil(138000)).withTimeout(2),
+            new RunCommand(()->elevatorSubsystem.openUntil(137500)).withInterrupt(()->elevatorSubsystem.isOpenUntil(138000)).withTimeout(2),
             new WaitUntilCommand(confirmation),
         new RunCommand(elevatorSubsystem::elevatorDown).withTimeout(0.5),
         new RunCommand(elevatorSubsystem::elevatorDown).withInterrupt(confirmation).alongWith(

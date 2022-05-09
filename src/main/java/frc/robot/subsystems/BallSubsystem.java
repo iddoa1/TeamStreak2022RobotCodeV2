@@ -1,6 +1,5 @@
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
@@ -50,11 +49,11 @@ public class BallSubsystem extends SubsystemBase {
   }
 
   public void openHand(){
-    intakeOperation.set(0.25);
+    intakeOperation.set(0.4);
   }
 
   public void closeHand(){
-    intakeOperation.set(-0.25);
+    intakeOperation.set(-0.4);
   }
 
   public void closeIntake(){
@@ -99,7 +98,11 @@ public class BallSubsystem extends SubsystemBase {
   }
 
   public void ballsUp(){
-    magazine.set(0.188);
+    magazine.set(0.25);
+  }
+
+  public void ballsUpH(){
+    magazine.set(0.3);
   }
 
   public void ballsDown(){
